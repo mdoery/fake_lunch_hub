@@ -1,10 +1,9 @@
 Jason Swett has a nice tutorial to run AngularJS on Rails:
 http://angularonrails.wpengine.com/wire-ruby-rails-angularjs-single-page-application-updated-2016/
 
-However, his environment is not fully specified, so in following the tutorial,
-I got quite a few non-trivial errors.
+However, his environment is not fully specified, so in following the tutorial in my local dev environment, I got quite a few non-trivial errors. The biggest problem occurred when a fairly recent version of Ruby and Rails got installed, and those did not work well with the tutorial. I had a lot of trouble getting rid of them. I tried not to repeat these mistakes on my AWS instance, but I ran into the same problem there.
 
-This is what I did to get his demo up and running on an AWS instance using Ubuntu 14.04. This tutorial assumes you've got your AWS instance set up, and that you can ssh into it. I ssh'd in as the user "ubuntu", which has root permissions.
+The following is what I did to get the demo up and running on an AWS instance using Ubuntu 14.04. This tutorial assumes you've got your AWS instance set up, and that you can ssh into it. I ssh'd in as the user "ubuntu", which has root permissions.
 
 First, install rvm. This is the Ruby Version Manager, which allows you to switch between different versions of Ruby. If you do not use the correct version of ruby and various gems, you will run into problems:
 
@@ -52,10 +51,6 @@ rvm -v
 # rvm 1.29.2 (manual) by Michal Papis, Piotr Kuczynski, Wayne E. Seguin [https://rvm.io/]
 ```
 
-Edit Gemfile and replace line where rails is specified with gem 'rails','~> 5.1.3' to gem 'rails', '4.2.5.1'
-
-The Gemfile and Gemfile.lock that I wound up using is checked in; so use these. I repeatedly ran into problems due to incompatible versions of various gems.
-
 Next install a specific version of Ruby and Rails:
 
 ```
@@ -83,7 +78,11 @@ rvm 2.2.6@rails4251
 # Output:
 # Using /home/ubuntu/.rvm/gems/ruby-2.2.6 with gemset rails4251
 
-# At this point, I did 'gem install railties'. This may have been a mistake; I probably should have done 'gem install railties -v 4.2.5.1'. After running 'gem install railties', I wound up with Rails 5.1.3, which is incompatible in numerous ways with the tutorial. I had to run numerous uninstall commands to get rid of versions 5.1.3 of various gems, like 'gem uninstall railties -v 5.1.3' etc.
+# At this point, I did 'gem install railties'.
+# This may have been a mistake; I probably should have done 'gem install railties -v 4.2.5.1'.
+# After running 'gem install railties', I wound up with Rails 5.1.3, which is incompatible
+# in numerous ways with the tutorial. I had to run numerous uninstall commands to get rid of 
+# versions 5.1.3 of various gems, like 'gem uninstall railties -v 5.1.3' etc.
 
 gem install railties -v 4.2.5.1
 
@@ -91,7 +90,8 @@ rails -v
 # Output:
 # Expected string default value for '--rc'; got false (boolean)
 # Rails 4.2.5.1
-# Yes! If you get Rails 5.1.3, you will have to do some work to figure out how to remove it until your environment is using 4.2.5.1
+# Yes! If you get Rails 5.1.3, you will have to do some work to figure out how to remove it
+# until your environment is using 4.2.5.1
 ```
 
 
@@ -116,22 +116,21 @@ cd fake_lunch_hub
 rake db:create
 ```
 
-
-# The rake command bombed for me. I had to make sure all 5.1.3 versions were removed from my gems. I used this command to look for them:
+The rake command bombed for me. I had to make sure all 5.1.3 versions were removed from my gems. I used this command to look for them:
 
 ```
 ruby -S gem list --local
 ```
 
-# I noticed there were a few more gems with 5.1.3. I'm not sure how they got installed. This is what's in my Gemfile:
+I noticed there were several gems with 5.1.3, and I think they got installed because the Gemfile for fake_lunch_hub points to 5.1.3 or higher. I edited my Gemfile to use 4.2.51:
 
 ```
 source 'https://rubygems.org'
 
 
-gem 'rails', '= 4.2.5.1'
+gem 'rails', '4.2.5.1'
 
-gem 'rails-api', '=0.4.1'
+gem 'rails-api', '0.4.1'
 
 gem 'spring', :group => :development
 
@@ -139,7 +138,9 @@ gem 'spring', :group => :development
 gem 'pg'
 ```
 
-Finally I gave up trying to do this part of the install manually. I copied my current version of Gemfile.lock over to the AWS instance, then ran "bundle install". Then I could run "rails -v" and it gave the same output as on my development machine:
+I had gone through the same problems in my local environment before trying this on an AWS instance, so in the end I was able to copy my local version of Gemfile.lock over to the instance, and run "bundle install" in the dir where my Gemfile.lock was. 
+
+Then I could run "rails -v" and it gave the same output as on my development machine:
 
 ```
 ubuntu@ip-172-31-24-140:~/Projects/angularonrails/fake_lunch_hub$ rails -v
