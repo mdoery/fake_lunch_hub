@@ -6,11 +6,9 @@ http://angularonrails.wpengine.com/wire-ruby-rails-angularjs-single-page-applica
 However, his environment is not fully specified, so in following the tutorial,
 I got quite a few non-trivial errors.
 
-This is what I did to get his demo up and running on an AWS instance running Ubuntu 14.04:
+This is what I did to get his demo up and running on an AWS instance using Ubuntu 14.04:
 
-### Install rvm ###
-
-rvm is the Ruby Version Manager, which allows you to switch between different versions of Ruby:
+First, install rvm. This is the Ruby Version Manager, which allows you to switch between different versions of Ruby:
 
 ```
 sudo apt-add-repository -y ppa:rael-gc/rvm
@@ -18,7 +16,7 @@ sudo apt-get update
 sudo apt-get install rvm
 ```
 
-### Switch to ruby 2.2.6 ###
+Next, switch to ruby 2.2.6, which seems to be correct for the tutorial.
 
 ```
 rvm 2.2.6
