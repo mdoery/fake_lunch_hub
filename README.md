@@ -1,14 +1,12 @@
-== README
-
 Jason Swett has a nice tutorial to run AngularJS on Rails:
 http://angularonrails.wpengine.com/wire-ruby-rails-angularjs-single-page-application-updated-2016/
 
 However, his environment is not fully specified, so in following the tutorial,
 I got quite a few non-trivial errors.
 
-This is what I did to get his demo up and running on an AWS instance using Ubuntu 14.04:
+This is what I did to get his demo up and running on an AWS instance using Ubuntu 14.04. This tutorial assumes you've got your AWS instance set up, and that you can ssh into it. I ssh'd in as the user "ubuntu", which has root permissions.
 
-First, install rvm. This is the Ruby Version Manager, which allows you to switch between different versions of Ruby:
+First, install rvm. This is the Ruby Version Manager, which allows you to switch between different versions of Ruby. If you do not use the correct version of ruby and various gems, you will run into problems:
 
 ```
 sudo apt-add-repository -y ppa:rael-gc/rvm
