@@ -301,3 +301,5 @@ gulp serve:full-stack
 ```
 
 Currently the demo is running here: http://ec2-54-86-19-3.compute-1.amazonaws.com:3001/#/groups
+
+Here's a link to a screenshot of what you should see: https://github.com/mdoery/fake_lunch_hub/blob/master/aws-groups.png
