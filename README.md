@@ -167,6 +167,9 @@ group :test do
 end
 ```
 
+You can see the final version of my Gemfile here: https://github.com/mdoery/fake_lunch_hub/blob/master/Gemfile
+
+
 Then run:
 
 ```
@@ -183,7 +186,7 @@ Then:
 rails g scaffold group name:string
 ```
 
-Next, edit db/migrate/20170816220808_create_groups.rb (the timestamp that is part of your file will be different, but the file will be in the db/migrate dir). Add the lines as instructed.
+Next, edit db/migrate/20170816220808_create_groups.rb (the timestamp that is part of your file's name will be different, but the file will be in the db/migrate dir). Add the lines as instructed.
 
 Then:
 
